@@ -2,7 +2,7 @@
 <html lang="en"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-  layout:decorate="~{layout/layout.html}">
+  layout:decorate="~{layout/manager_layout.html}">
   <head>
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
@@ -13,20 +13,20 @@
 <body>
   <div class="container mt-3" layout:fragment="content">
     <h2>매니저 로그인</h2>
-    <form th:action="@{manager_login}" method="post">
+    <form th:action="@{login}" method="post">
       <div class="input-group input-group-lg mb-3">
         <span class="input-group-text">아이디</span>
-        <input type="text" class="form-control" id="user" name="username">
+        <input type="text" class="form-control" id="rm_id" name="rm_username">
       </div>
       <div class="input-group input-group-lg mb-3">
         <span class="input-group-text">비밀번호</span>
-        <input type="password" class="form-control" id="pw" name="password">
+        <input type="password" class="form-control" id="rm_pw" name="rm_password">
       </div>
       <label>
         <input type="checkbox" name="remember-me"> 자동 로그인
       </label>
       <button class="btn btn-outline-success col-12 mb-3">로그인</button>
-      <button class="btn btn-outline-success col-12 mb-3">회원가입 및 매장 등록</button>
+      <button type="button" class="btn btn-outline-success col-12 mb-3" onclick="location.href='/manager/signup'">회원가입</button>
     </form>
   </div>
 </body>

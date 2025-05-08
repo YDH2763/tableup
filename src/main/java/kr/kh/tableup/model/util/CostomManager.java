@@ -9,20 +9,20 @@ import org.springframework.security.core.userdetails.User;
 
 import kr.kh.tableup.model.vo.MemberVO;
 import kr.kh.tableup.model.vo.RestaurantManagerVO;
-import lombok.Data;
 
-@Data
-public class CustomUser extends User {
+public class CostomManager extends User{
+
 	
-	private MemberVO member;
+	private RestaurantManagerVO manager;
 	
-	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-		super(username, password, authorities);
+	public CostomManager(String rm_username, String rm_password, Collection<? extends GrantedAuthority> authorities) {
+		super(rm_username, rm_password, authorities);
 	}
-	public CustomUser(MemberVO vo) {
-		super(	vo.getMe_id(),
-				vo.getMe_pw(), 
+	public CostomManager(RestaurantManagerVO vo) {
+		super(	vo.getRm_id(),
+				vo.getRm_pw(), 
 				Arrays.asList(new SimpleGrantedAuthority(vo.getMe_authority())));
-		this.member = vo;
+		this.manager = vo;
 	}
+	
 }

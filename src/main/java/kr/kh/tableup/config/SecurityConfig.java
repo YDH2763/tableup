@@ -59,4 +59,7 @@ public class SecurityConfig{
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    //매니저 로그인
+    
 }

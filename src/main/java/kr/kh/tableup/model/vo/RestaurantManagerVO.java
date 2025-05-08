@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class RestaurantManagerVO {
 
+	int rm_no;
 	String rm_id;
 	String rm_pw;
 	String rm_email;

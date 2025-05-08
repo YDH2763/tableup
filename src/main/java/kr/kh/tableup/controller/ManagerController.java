@@ -9,9 +9,10 @@ import kr.kh.tableup.model.vo.RestaurantManagerVO;
 import kr.kh.tableup.service.ManagerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -26,24 +27,40 @@ public class ManagerController {
 	@Autowired
   PasswordEncoder passwordEncoder;
 
-	@GetMapping("/manager_login")
-	public String manager_login(Model model) {
-		model.addAttribute("url", "/manager_login");
-		return "/manager/manager_login";
+	@GetMapping("main")
+	public String manager(Model model) {
+		model.addAttribute("url","/main");
+		return "/manager/main";
 	}
 	
 
-	@GetMapping("/manager_signup")
+	@GetMapping("/login")
+	public String manager_login(Model model) {
+		model.addAttribute("url", "/login");
+		return "manager/login";
+	}
+
+	
+	@PostMapping("/login")
+	public String login(@RequestParam String rm_username,
+											@RequestParam String rm_password,
+											@RequestParam(required = false) String rememberMe,
+											Model model) {
+			return "redirect:/manager/main"; 
+	}
+
+
+	@GetMapping("/signup")
 	public String manager_signup(Model model) {
-		model.addAttribute("url", "/manager_signup");
-		return "/manager/manager_signup";
+		model.addAttribute("url", "/signup");
+		return "/manager/signup";
 	}
 	
-	@PostMapping("/manager_signup")
+	@PostMapping("/signup")
 	public String postMethodName(RestaurantManagerVO rm) {
 		rm.setRm_pw(passwordEncoder.encode(rm.getRm_pw()));
 		managerService.insertManager(rm);
-		return "redirect:/manager/manager_login";
+		return "redirect:/manager/login";
 	}
 	
 	

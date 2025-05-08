@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{/manager/main}">Logo</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="mynavbar">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/manager/main}" th:classappend="${url == '/manager/main' ? 'active' : ''}">홈</a>
+						</li>
+						<li class="nav-item" sec:authorize="isAnonymous()">
+							<a class="nav-link" th:href="@{/manager/login}" th:classappend="${url == '/manager/login' ? 'active' : ''}">로그인</a>
+						</li>
+						<li class="nav-item" sec:authorize="isAuthenticated()">
+							<form th:action="@{/manager_logout}" method="post">
+								<button class="btn nav-link">로그아웃</button>
+							</form>
+						</li>
+						<li class="nav-item" sec:authorize="isAnonymous()">
+							<a class="nav-link" th:href="@{/manager/signup}" th:classappend="${url == '/manager/signup' ? 'active' : ''}">회원가입</a>
+						</li>
+						
+					</ul>
+					<form class="d-flex">
+						<input class="form-control me-2" type="text" placeholder="Search">
+						<button class="btn btn-primary" type="button">Search</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</header>	
+		<footer th:fragment="footer" class="py-4 bg-white border-top text-center">
+			<div class="container">
+				<div class="row">
+					<!-- 로고 및 저작권 -->
+					<div class="col-12 col-md">
+						<small class="d-block mb-3 text-body-secondary">Copyright ⓒ tablemate Corp.</small>
+					</div>
+				</div>
+			</div>
+		</footer>
+</body>
+</html>
