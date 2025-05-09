@@ -12,5 +12,7 @@ public interface ManagerDAO {
 	RestaurantManagerVO selectManager(String rm_id);
 
 	RestaurantVO selectRestaurant(int rm_rum);
+
+	boolean insertRestaurant(RestaurantVO restaurant);
 	
 }
