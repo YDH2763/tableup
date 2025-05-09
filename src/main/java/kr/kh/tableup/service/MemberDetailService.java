@@ -21,6 +21,7 @@ public class MemberDetailService implements UserDetailsService{
 		MemberVO member = memberDao.selectMember(username);
 
 		return member == null ? null : new CustomUser(member);
+		
 	}
 
 }

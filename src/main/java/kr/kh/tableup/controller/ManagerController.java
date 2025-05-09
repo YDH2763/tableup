@@ -1,17 +1,18 @@
 package kr.kh.tableup.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import kr.kh.tableup.model.vo.RestaurantManagerVO;
+import kr.kh.tableup.model.vo.RestaurantVO;
 import kr.kh.tableup.service.ManagerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -30,7 +31,7 @@ public class ManagerController {
 	@GetMapping("main")
 	public String manager(Model model) {
 		model.addAttribute("url","/main");
-		return "/manager/main";
+		return "manager/main";
 	}
 	
 
@@ -38,15 +39,6 @@ public class ManagerController {
 	public String manager_login(Model model) {
 		model.addAttribute("url", "/login");
 		return "manager/login";
-	}
-
-	
-	@PostMapping("/login")
-	public String login(@RequestParam String rm_username,
-											@RequestParam String rm_password,
-											@RequestParam(required = false) String rememberMe,
-											Model model) {
-			return "redirect:/manager/main"; 
 	}
 
 
@@ -63,5 +55,21 @@ public class ManagerController {
 		return "redirect:/manager/login";
 	}
 	
+	@GetMapping("/restaurant")
+	public String restaurantPage(Model model ,Principal principal) {
+		String managerName=principal.getName();
+		RestaurantManagerVO manager = managerService.getManagerId(managerName);
+		//해당 매니저의 매장 외래키를 가져옴
+		int rm_num=manager.getRm_no();
+		RestaurantVO restaurant =managerService.selectRestaurant(rm_num);
+		
+		System.out.println(manager);
+		System.out.println(restaurant);
+		
+		model.addAttribute("manager", manager);
+		model.addAttribute("restaurant", restaurant);
+		model.addAttribute("url", "/restaurant");
+		return "/manager/restaurant";
+	}
 	
 }
